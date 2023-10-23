@@ -5,8 +5,23 @@
 
   <main class="app-main">
     <ScoreBoard :score="score" />
-    <div>
-      <AppNumberInput :default="formSize" :min="3" :max="10" @change="onSizeChange" />
+    <div class="app-configuration">
+      <AppNumberInput
+        :default="formSize"
+        :min="3"
+        :max="10"
+        :icon="iconSize"
+        title="Grid size"
+        @change="onSizeChange"
+      />
+      <AppNumberInput
+        :default="formObstacles"
+        :min="0"
+        :max="3"
+        :icon="iconObstacles"
+        title="Obstacle count"
+        @change="onObstaclesChange"
+      />
       <AppButton text="Reset" @click="onResetClick" />
     </div>
     <AppHelp />
@@ -23,6 +38,8 @@ import GridLayout from './components/GridLayout.vue';
 import ScoreBoard from './components/ScoreBoard.vue';
 import { useGameKeyStroke } from './composables/useGameKeyStroke';
 import { useGameStore } from './stores/game';
+import iconObstacles from './assets/icons/obstacles.png';
+import iconSize from './assets/icons/size.png';
 
 const score = computed(() => String(gameStore.game?.score ?? '-'));
 
@@ -34,6 +51,7 @@ const squares = computed(
       x: square.x,
       y: square.y,
       score: square.score,
+      obstacle: square.obstacle,
     })) ?? [],
 );
 
@@ -41,10 +59,16 @@ const size = computed(() => gameStore.game?.size);
 
 const gameStore = useGameStore();
 const formSize = ref(5);
+const formObstacles = ref(1);
 
-const onResetClick = () => gameStore.resetGame(unref(formSize));
+const resetGame = () => gameStore.resetGame(unref(formSize), unref(formObstacles));
+
+const onResetClick = () => resetGame();
 const onSizeChange = (value: number) => {
   formSize.value = value;
+};
+const onObstaclesChange = (value: number) => {
+  formObstacles.value = value;
 };
 
 useGameKeyStroke(['ArrowRight', 'd'], () => gameStore.game?.right());
@@ -53,7 +77,7 @@ useGameKeyStroke(['ArrowDown', 's'], () => gameStore.game?.down());
 useGameKeyStroke(['ArrowUp', 'w'], () => gameStore.game?.up());
 
 // start a new game automatically
-gameStore.resetGame(unref(formSize));
+resetGame();
 </script>
 
 <style scoped>
@@ -69,5 +93,9 @@ gameStore.resetGame(unref(formSize));
   flex-direction: column;
   align-items: center;
   gap: 20px;
+}
+
+.app-configuration {
+  display: flex;
 }
 </style>

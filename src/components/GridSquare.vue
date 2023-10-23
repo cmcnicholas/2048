@@ -2,6 +2,7 @@
   <g class="grid-square" :style="style" :data-id="square.id">
     <rect :style="rectStyle" x="5" y="5" :width="SizeInPixels - 10" :height="SizeInPixels - 10" />
     <text
+      v-if="!square.obstacle"
       class="grid-square__score"
       :x="SizeInPixels / 2"
       :y="SizeInPixels / 2"
@@ -24,6 +25,7 @@ export type GridSquareViewModel = {
   x: number;
   y: number;
   score: number;
+  obstacle: boolean;
 };
 
 const props = defineProps<{
@@ -36,15 +38,23 @@ const style = computed<CSSProperties>(() => ({
   transform: `translate(${unref(x)}px, ${unref(y)}px)`,
 }));
 
-const rectStyle = computed<CSSProperties>(() => ({
-  fill: `var(${
-    props.square.score > 64
-      ? '--color-grid-square-large'
-      : props.square.score > 8
-      ? '--color-grid-square-medium'
-      : '--color-grid-square-small'
-  })`,
-}));
+const rectStyle = computed<CSSProperties>(() => {
+  let colour: string;
+  if (props.square.obstacle) {
+    colour = '--color-grid-square-obstacle';
+  } else {
+    colour =
+      props.square.score > 64
+        ? '--color-grid-square-large'
+        : props.square.score > 8
+        ? '--color-grid-square-medium'
+        : '--color-grid-square-small';
+  }
+
+  return {
+    fill: `var(${colour})`,
+  };
+});
 </script>
 
 <style scoped>

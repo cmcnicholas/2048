@@ -12,6 +12,7 @@
   --color-5: #00AF54;
   --color-5-dark: #00994a;
   --color-5-light: #06be5f;
+  --color-6: #aaa;
 
   /* scoreboard colours */
   --color-scoreboard: var(--color-1);
@@ -40,6 +41,7 @@
   --color-grid-square-small: var(--color-3);
   --color-grid-square-medium: var(--color-2);
   --color-grid-square-large: var(--color-1);
+  --color-grid-square-obstacle: var(--color-6);
 }
 
 *,

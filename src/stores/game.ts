@@ -9,10 +9,10 @@ import { ref } from 'vue';
 export const useGameStore = defineStore('game', () => {
   const game = ref<Game>();
 
-  const resetGame = (size?: number) => {
+  const resetGame = (size?: number, obstacles?: number) => {
     const matrixFactory = new MatrixFactory();
     const factory = new GameFactory(matrixFactory, new SquareSpawnerDefaultStrategy(), new SquareSlidingDefaultStrategy());
-    game.value = factory.create(size ?? 5);
+    game.value = factory.create(size ?? 5, obstacles ?? 0);
   }
 
   return { game, resetGame };

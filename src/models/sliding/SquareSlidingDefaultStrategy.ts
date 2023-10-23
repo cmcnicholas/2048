@@ -62,6 +62,11 @@ export class SquareSlidingDefaultStrategy implements SquareSlidingStrategy {
   ): void {
     const square = game.matrix.getSquare(column, row);
 
+    // return early if obstacle
+    if (square?.obstacle) {
+      return;
+    }
+
     // squares can be empty already
     if (square) {
       const moveTo = findNearestSpaceToWall(game.matrix, column, row);
@@ -74,9 +79,9 @@ export class SquareSlidingDefaultStrategy implements SquareSlidingStrategy {
         game.matrix.setSquare(square);
       }
 
-      // check if directly above/below is another square
+      // check if directly above/below is another square and not obstacle
       const adjacentSquare = game.matrix.getSquare(column, square.y + direction);
-      if (adjacentSquare) {
+      if (adjacentSquare && !adjacentSquare.obstacle) {
         // check if they match score
         if (adjacentSquare.score === square.score) {
           // we have a collision so merge
@@ -118,6 +123,11 @@ export class SquareSlidingDefaultStrategy implements SquareSlidingStrategy {
   ): void {
     const square = game.matrix.getSquare(column, row);
 
+    // return early if obstacle
+    if (square?.obstacle) {
+      return;
+    }
+
     // squares can be empty already
     if (square) {
       const moveTo = findNearestSpaceToWall(game.matrix, row, column);
@@ -130,9 +140,9 @@ export class SquareSlidingDefaultStrategy implements SquareSlidingStrategy {
         game.matrix.setSquare(square);
       }
 
-      // check if directly left/right is another square
+      // check if directly left/right is another square and not obstacle
       const adjacentSquare = game.matrix.getSquare(square.x + direction, row);
-      if (adjacentSquare) {
+      if (adjacentSquare && !adjacentSquare.obstacle) {
         // check if they match score
         if (adjacentSquare.score === square.score) {
           // we have a collision so merge

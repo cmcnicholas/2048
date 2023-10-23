@@ -1,11 +1,19 @@
 import { random } from 'lodash';
 import { nanoid } from 'nanoid';
+import type { GameState } from '../GameState';
 import { Square } from '../Square';
 import type { SquareSpawnerStrategy } from './SquareSpawnerStrategy';
-import type { GameState } from '../GameState';
 
 export class SquareSpawnerDefaultStrategy implements SquareSpawnerStrategy {
   public spawn(game: GameState): Square | undefined {
+    return this.spawnSquare(game, false);
+  }
+
+  public spawnObstacle(game: GameState): Square | undefined {
+    return this.spawnSquare(game, true);
+  }
+
+  private spawnSquare(game: GameState, obstacle: boolean): Square | undefined {
     if (game.squares.length >= Math.pow(game.size, 2)) {
       return undefined;
     }
@@ -33,6 +41,7 @@ export class SquareSpawnerDefaultStrategy implements SquareSpawnerStrategy {
       score: 2,
       x: space.x,
       y: space.y,
+      obstacle,
     });
 
     // update internals

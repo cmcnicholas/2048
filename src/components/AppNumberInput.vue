@@ -1,18 +1,22 @@
 <template>
-  <input
-    v-model="value"
-    type="number"
-    class="app-number-input"
-    :min="min"
-    :max="max"
-    @change="onChange"
-  />
+  <div class="app-number-input">
+    <img class="app-number-input__icon" :src="icon" height="32" />
+    <input
+      v-model="value"
+      type="number"
+      class="app-number-input__value"
+      :min="min"
+      :max="max"
+      @change="onChange"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref, unref, watch } from 'vue';
 
 const props = defineProps<{
+  icon: string;
   default: number;
   min: number;
   max: number;
@@ -45,6 +49,16 @@ watch(
 
 <style scoped>
 .app-number-input {
+  display: flex;
+  align-items: center;
+  background: var(--color-number-input);
+}
+
+.app-number-input__icon {
+  margin-left: 20px;
+}
+
+.app-number-input__value {
   border: 0 none;
   padding: 20px;
   background: var(--color-number-input);
@@ -53,5 +67,6 @@ watch(
   font-weight: 700;
   cursor: pointer;
   outline: none;
+  width: 90px;
 }
 </style>

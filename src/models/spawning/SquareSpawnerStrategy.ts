@@ -6,4 +6,5 @@ import type { Square } from '../Square';
  */
 export interface SquareSpawnerStrategy {
   spawn(game: GameState): Square | undefined;
+  spawnObstacle(game: GameState): Square | undefined;
 }

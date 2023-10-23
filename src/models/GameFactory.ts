@@ -19,7 +19,7 @@ export class GameFactory {
     this.squareSliding = sliderStrategy;
   }
 
-  public create(size: number): Game {
+  public create(size: number, obstacles: number): Game {
     const squares: Square[] = [];
     const matrix = this.matrixFactory.create(size);
 
@@ -27,6 +27,11 @@ export class GameFactory {
 
     // create starting square
     this.squareSpawner.spawn(game);
+
+    // spawn obstacles
+    for (let i = 0; i < obstacles; i++) {
+      this.squareSpawner.spawnObstacle(game);
+    }
 
     return game;
   }

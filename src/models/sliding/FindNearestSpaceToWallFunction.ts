@@ -16,6 +16,8 @@ export const nearestSpaceToWallAbove: FindNearestSpaceToWallFunction = (
   for (let z = currentPosition - 1; z >= 0; z--) {
     if (matrix.getSquare(column, z) === undefined) {
       index = z;
+    } else {
+      break;
     }
   }
   return index;
@@ -31,6 +33,8 @@ export const nearestSpaceToWallBelow: FindNearestSpaceToWallFunction = (
   for (let z = currentPosition + 1; z < matrix.size; z++) {
     if (matrix.getSquare(column, z) === undefined) {
       index = z;
+    } else {
+      break;
     }
   }
   return index;
@@ -46,6 +50,8 @@ export const nearestSpaceToWallLeft: FindNearestSpaceToWallFunction = (
   for (let z = currentPosition - 1; z >= 0; z--) {
     if (matrix.getSquare(z, row) === undefined) {
       index = z;
+    } else {
+      break;
     }
   }
   return index;
@@ -61,6 +67,8 @@ export const nearestSpaceToWallRight: FindNearestSpaceToWallFunction = (
   for (let z = currentPosition + 1; z < matrix.size; z++) {
     if (matrix.getSquare(z, row) === undefined) {
       index = z;
+    } else {
+      break;
     }
   }
   return index;
