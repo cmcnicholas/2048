@@ -1,0 +1,70 @@
+:root {
+  --color-text: #000;
+  --color-background: #fff;
+
+  /* master colours */
+  --color-1: #FBAF00;
+  --color-2: #FFD639;
+  --color-3: #FFA3AF;
+  --color-3-dark: #f4909d;
+  --color-4: #007CBE;
+  --color-4-light: #0689d0;
+  --color-5: #00AF54;
+  --color-5-light: #06be5f;
+
+  /* scoreboard colours */
+  --color-scoreboard: var(--color-1);
+  --color-scoreboard-text: #fff;
+  --color-scoreboard-score: var(--color-2);
+
+  /* button colours */
+  --color-button: var(--color-5);
+  --color-button-hover: var(--color-5-light);
+  --color-button-text: #fff;
+
+  /* help colours */
+  --color-app-help-key: var(--color-3);
+  --color-app-help-key-border: var(--color-3-dark);
+  --color-app-help-key-text: var(--color-text);
+
+  /* grid layout colours */
+  --color-grid-layout: var(--color-4);
+  --color-grid-layout-checker: var(--color-4-light);
+
+  /* grid square colours */
+  --color-grid-square-small: var(--color-3);
+  --color-grid-square-medium: var(--color-2);
+  --color-grid-square-large: var(--color-1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  line-height: 1.6;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
