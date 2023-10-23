@@ -42,6 +42,8 @@
   --color-grid-square-medium: var(--color-2);
   --color-grid-square-large: var(--color-1);
   --color-grid-square-obstacle: var(--color-6);
+  --color-grid-square-merge: var(--color-5);
+  --color-grid-square-text: #fff;
 }
 
 *,

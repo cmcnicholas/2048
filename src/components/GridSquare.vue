@@ -1,6 +1,13 @@
 <template>
   <g class="grid-square" :style="style" :data-id="square.id">
-    <rect :style="rectStyle" x="5" y="5" :width="SizeInPixels - 10" :height="SizeInPixels - 10" />
+    <rect
+      ref="backgroundElement"
+      :style="rectStyle"
+      x="5"
+      y="5"
+      :width="SizeInPixels - 10"
+      :height="SizeInPixels - 10"
+    />
     <text
       v-if="!square.obstacle"
       class="grid-square__score"
@@ -9,7 +16,6 @@
       dominant-baseline="middle"
       text-anchor="middle"
       alignment-baseline="middle"
-      fill="white"
       >{{ square.score }}</text
     >
   </g>
@@ -18,7 +24,9 @@
 <script setup lang="ts">
 import { SizeInPixels } from '@/utils/Constants';
 import type { CSSProperties } from 'vue';
-import { computed, unref } from 'vue';
+import { computed, ref, unref, watch } from 'vue';
+
+const backgroundElement = ref<SVGRectElement>();
 
 export type GridSquareViewModel = {
   id: string;
@@ -38,7 +46,7 @@ const style = computed<CSSProperties>(() => ({
   transform: `translate(${unref(x)}px, ${unref(y)}px)`,
 }));
 
-const rectStyle = computed<CSSProperties>(() => {
+const background = computed(() => {
   let colour: string;
   if (props.square.obstacle) {
     colour = '--color-grid-square-obstacle';
@@ -50,11 +58,37 @@ const rectStyle = computed<CSSProperties>(() => {
         ? '--color-grid-square-medium'
         : '--color-grid-square-small';
   }
-
-  return {
-    fill: `var(${colour})`,
-  };
+  return colour;
 });
+
+const rectStyle = computed<CSSProperties>(() => ({
+  fill: `var(${unref(background)})`,
+}));
+
+// merge animation by tracking score changes
+watch(
+  () => props.square.score,
+  () => {
+    unref(backgroundElement)?.animate(
+      [
+        {
+          fill: `var(${unref(background)})`,
+        },
+        {
+          fill: 'var(--color-grid-square-merge)',
+        },
+        {
+          fill: `var(${unref(background)})`,
+        },
+      ],
+      {
+        duration: 400,
+        easing: 'ease-out',
+        iterations: 1,
+      },
+    );
+  },
+);
 </script>
 
 <style scoped>
@@ -80,5 +114,6 @@ const rectStyle = computed<CSSProperties>(() => {
   font-size: 48px;
   line-height: 48px;
   font-weight: 700;
+  fill: var(--color-grid-square-text);
 }
 </style>
