@@ -1,8 +1,8 @@
 <template>
   <p class="app-help">
-    Use <span class="app-help__key">w</span>, <span class="app-help__key">a</span>,
-    <span class="app-help__key">s</span>, <span class="app-help__key">d</span> or the arrow keys to
-    move.
+    Set the board size above and use <span class="app-help__key">w</span>,
+    <span class="app-help__key">a</span>, <span class="app-help__key">s</span>,
+    <span class="app-help__key">d</span> or the arrow keys to move.
   </p>
 </template>
 

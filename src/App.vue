@@ -5,16 +5,20 @@
 
   <main class="app-main">
     <ScoreBoard :score="score" />
-    <AppButton text="Reset" @click="onResetClick" />
+    <div>
+      <AppNumberInput :default="formSize" :min="3" :max="10" @change="onSizeChange" />
+      <AppButton text="Reset" @click="onResetClick" />
+    </div>
     <AppHelp />
     <GridLayout v-if="size" :size="size" :squares="squares" />
   </main>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, unref } from 'vue';
 import AppButton from './components/AppButton.vue';
 import AppHelp from './components/AppHelp.vue';
+import AppNumberInput from './components/AppNumberInput.vue';
 import GridLayout from './components/GridLayout.vue';
 import ScoreBoard from './components/ScoreBoard.vue';
 import { useGameKeyStroke } from './composables/useGameKeyStroke';
@@ -36,8 +40,12 @@ const squares = computed(
 const size = computed(() => gameStore.game?.size);
 
 const gameStore = useGameStore();
+const formSize = ref(5);
 
-const onResetClick = () => gameStore.resetGame();
+const onResetClick = () => gameStore.resetGame(unref(formSize));
+const onSizeChange = (value: number) => {
+  formSize.value = value;
+};
 
 useGameKeyStroke(['ArrowRight', 'd'], () => gameStore.game?.right());
 useGameKeyStroke(['ArrowLeft', 'a'], () => gameStore.game?.left());
@@ -45,7 +53,7 @@ useGameKeyStroke(['ArrowDown', 's'], () => gameStore.game?.down());
 useGameKeyStroke(['ArrowUp', 'w'], () => gameStore.game?.up());
 
 // start a new game automatically
-gameStore.resetGame();
+gameStore.resetGame(unref(formSize));
 </script>
 
 <style scoped>

@@ -10,6 +10,7 @@
   --color-4: #007CBE;
   --color-4-light: #0689d0;
   --color-5: #00AF54;
+  --color-5-dark: #00994a;
   --color-5-light: #06be5f;
 
   /* scoreboard colours */
@@ -21,6 +22,10 @@
   --color-button: var(--color-5);
   --color-button-hover: var(--color-5-light);
   --color-button-text: #fff;
+
+  /* number input colours */
+  --color-number-input: var(--color-5-dark);
+  --color-number-input-text: #fff;
 
   /* help colours */
   --color-app-help-key: var(--color-3);

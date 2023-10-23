@@ -34,7 +34,7 @@ const props = defineProps<{
 
 const width = computed(() => props.size * SizeInPixels);
 const height = computed(() => props.size * SizeInPixels);
-const checkers = useCheckers(props.size);
+const checkers = useCheckers(computed(() => props.size));
 </script>
 
 <style scoped>
